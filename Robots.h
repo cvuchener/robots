@@ -9,8 +9,8 @@ public:
 	explicit Robots (const Robots &);
 	~Robots ();
 
-	Robot *operator[] (Robot::Color);
-	const Robot *operator[] (Robot::Color) const;
+	Robot *operator[] (RobotColor);
+	const Robot *operator[] (RobotColor) const;
 
 	Robot *atPosition (const QPoint &position);
 	const Robot *atPosition (const QPoint &position) const;
@@ -18,7 +18,7 @@ public:
 	Robots &operator= (const Robots &) = delete;
 
 private:
-	Robot *_robots[Robot::ROBOT_COUNT];
+	Robot *_robots;
 };
 
 #endif // ROBOTS_H

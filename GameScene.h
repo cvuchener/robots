@@ -5,6 +5,7 @@
 #include <QGraphicsItemGroup>
 #include "GraphicsRobotItem.h"
 #include "GraphicsBoardItem.h"
+#include "GraphicsPathItem.h"
 #include "Game.h"
 
 class GameScene: public QGraphicsScene {
@@ -15,7 +16,7 @@ public:
 
 public slots:
 	void updateRobot (const Robot *);
-	void showPath (unsigned int cost, QList<QPair<Robot::Color, QPoint>> path);
+	void showPath (unsigned int cost, QList<QPair<RobotColor, QPoint>> path);
 
 protected:
 	virtual void mousePressEvent (QGraphicsSceneMouseEvent *event);
@@ -23,11 +24,11 @@ protected:
 private:
 	Game *_game;
 	GraphicsBoardItem _board;
-	QMap<Robot::Color, GraphicsRobotItem *> _robots;
+	QMap<RobotColor, GraphicsRobotItem *> _robots;
 	QList<QGraphicsRectItem *> _move_items;
 	QList<QPoint> _moves;
-	QList<QGraphicsLineItem *> _path;
-	Robot::Color _selection;
+	QList<GraphicsPathItem *> _path;
+	RobotColor _selection;
 };
 
 #endif // GAMESCENE_H

@@ -8,7 +8,7 @@ DefaultRules::DefaultRules () {
 DefaultRules::~DefaultRules () {
 }
 
-QList<QPoint> DefaultRules::regularRobotMoves (const Board &board, const Robots &robots, Robot::Color color) const {
+QList<QPoint> DefaultRules::regularRobotMoves (const Board &board, const Robots &robots, RobotColor color) const {
 	QMap<Board::Wall, QPoint> dirs;
 	dirs.insert (Board::NORTH, QPoint (0, -1));
 	dirs.insert (Board::EAST, QPoint (+1, 0));
@@ -37,6 +37,6 @@ QList<QPoint> DefaultRules::regularRobotMoves (const Board &board, const Robots 
 	return list;
 }
 
-QList<QPoint> DefaultRules::specialRobotMoves (const Board &board, const Robots &robots, Robot::Color color) const {
+QList<QPoint> DefaultRules::specialRobotMoves (const Board &board, const Robots &robots, RobotColor color) const {
 	return regularRobotMoves (board, robots, color);
 }

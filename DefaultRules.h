@@ -8,8 +8,8 @@ public:
 	DefaultRules ();
 	virtual ~DefaultRules ();
 
-	virtual QList<QPoint> regularRobotMoves (const Board &, const Robots &, Robot::Color) const;
-	virtual QList<QPoint> specialRobotMoves (const Board &, const Robots &, Robot::Color) const;
+	virtual QList<QPoint> regularRobotMoves (const Board &, const Robots &, RobotColor) const;
+	virtual QList<QPoint> specialRobotMoves (const Board &, const Robots &, RobotColor) const;
 };
 
 #endif // DEFAULTRULES_H

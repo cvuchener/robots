@@ -16,11 +16,11 @@ public:
 
 	const Board &board () const;
 	const Robots &robots () const;
-	const Robot &robot (Robot::Color) const;
+	const Robot &robot (RobotColor) const;
 	const Rules *rules () const;
 
-	QList<QPoint> validMoves (Robot::Color) const;
-	bool move (Robot::Color, QPoint position);
+	QList<QPoint> validMoves (RobotColor) const;
+	bool move (RobotColor, QPoint position);
 
 signals:
 	void robotMoved (const Robot *);

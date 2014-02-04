@@ -5,21 +5,33 @@
 
 class Objective {
 public:
-	enum Value {
-		A, B, C, D
+	class Symbol {
+	public:
+		Symbol (const Symbol &) = delete;
+
+		static const Symbol *A, *B, *C, *D;
+
+		QString toString () const;
+
+	private:
+		Symbol (const QString &name);
+		QString _name;
 	};
 
-	Objective (Robot::Color color, Value value, QPoint position);
+	Objective (RobotColor color, const Symbol *symbol, QPoint position);
 	~Objective ();
 
 	bool accept (const Robot *) const;
-	Robot::Color color () const;
+	RobotColor color () const;
+	const Symbol *symbol () const;
 	QPoint position () const;
 
 private:
-	Robot::Color _color;
-	Value _value;
+	RobotColor _color;
+	const Symbol *_symbol;
 	QPoint _position;
 };
+
+typedef const Objective::Symbol *ObjectiveSymbol;
 
 #endif // OBJECTIVE_H

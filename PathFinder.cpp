@@ -10,9 +10,9 @@ PathFinder::~PathFinder () {
 }
 
 void PathFinder::run () {
-	QList<QPair<Robot::Color, QPoint>> path;
+	QList<QPair<RobotColor, QPoint>> path;
 	_color_list = Robot::COLORS;
-	if (_objective->color () != Robot::WHITE) {
+	if (_objective->color () != Robot::Color::WHITE) {
 		_color_list.removeOne (_objective->color ());
 		_color_list.prepend (_objective->color ());
 	}
@@ -22,7 +22,7 @@ void PathFinder::run () {
 	qDebug () << "Search ended";
 }
 
-unsigned int PathFinder::search_rec (unsigned int cost, unsigned int max_cost, QList<QPair<Robot::Color, QPoint>> &path, unsigned int max_length) {
+unsigned int PathFinder::search_rec (unsigned int cost, unsigned int max_cost, QList<QPair<RobotColor, QPoint>> &path, unsigned int max_length) {
 	static int primary_step = 0;
 	static int secondary_step = 0;
 	if (cost+1 >= max_cost || path.count () >= max_length)
@@ -30,7 +30,7 @@ unsigned int PathFinder::search_rec (unsigned int cost, unsigned int max_cost, Q
 
 	if (path.count () == 0)
 		primary_step = 0;
-	foreach (Robot::Color color, _color_list) {
+	foreach (RobotColor color, _color_list) {
 		if (path.count () == 0) {
 			primary_step++;
 			secondary_step = 0;
@@ -44,7 +44,7 @@ unsigned int PathFinder::search_rec (unsigned int cost, unsigned int max_cost, Q
 		Robot *robot = _robots[color];
 		QPoint pos = robot->position();
 		foreach (QPoint move, moves) {
-			path.append (QPair<Robot::Color, QPoint> (color, move));
+			path.append (QPair<RobotColor, QPoint> (color, move));
 			robot->move (move);
 
 			if (_objective->position () == move && _objective->accept (_robots[color])) {

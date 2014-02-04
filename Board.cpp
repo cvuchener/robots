@@ -28,23 +28,23 @@ Board::Board (): _width (DEFAULT_BOARD_WIDTH), _height (DEFAULT_BOARD_HEIGHT) {
 		::memcpy (_cells[y], DEFAULT_BOARD[y], _width * sizeof (unsigned int));
 	}
 
-	_objectives << new Objective (Robot::WHITE, Objective::A, QPoint (11, 5))
-				<< new Objective (Robot::RED, Objective::A, QPoint (2, 1))
-				<< new Objective (Robot::RED, Objective::B, QPoint (4, 13))
-				<< new Objective (Robot::RED, Objective::C, QPoint (12, 1))
-				<< new Objective (Robot::RED, Objective::D, QPoint (9, 12))
-				<< new Objective (Robot::BLUE, Objective::A, QPoint (6, 3))
-				<< new Objective (Robot::BLUE, Objective::B, QPoint (2, 10))
-				<< new Objective (Robot::BLUE, Objective::C, QPoint (10, 2))
-				<< new Objective (Robot::BLUE, Objective::D, QPoint (12, 9))
-				<< new Objective (Robot::GREEN, Objective::A, QPoint (1, 6))
-				<< new Objective (Robot::GREEN, Objective::B, QPoint (6, 14))
-				<< new Objective (Robot::GREEN, Objective::C, QPoint (14, 6))
-				<< new Objective (Robot::GREEN, Objective::D, QPoint (14, 13))
-				<< new Objective (Robot::YELLOW, Objective::A, QPoint (4, 5))
-				<< new Objective (Robot::YELLOW, Objective::B, QPoint (5, 8))
-				<< new Objective (Robot::YELLOW, Objective::C, QPoint (10, 7))
-				<< new Objective (Robot::YELLOW, Objective::D, QPoint (11, 14));
+	_objectives << new Objective (Robot::Color::WHITE, Objective::Symbol::A, QPoint (11, 5))
+				<< new Objective (Robot::Color::RED, Objective::Symbol::A, QPoint (2, 1))
+				<< new Objective (Robot::Color::RED, Objective::Symbol::B, QPoint (4, 13))
+				<< new Objective (Robot::Color::RED, Objective::Symbol::C, QPoint (12, 1))
+				<< new Objective (Robot::Color::RED, Objective::Symbol::D, QPoint (9, 12))
+				<< new Objective (Robot::Color::BLUE, Objective::Symbol::A, QPoint (6, 3))
+				<< new Objective (Robot::Color::BLUE, Objective::Symbol::B, QPoint (2, 10))
+				<< new Objective (Robot::Color::BLUE, Objective::Symbol::C, QPoint (10, 2))
+				<< new Objective (Robot::Color::BLUE, Objective::Symbol::D, QPoint (12, 9))
+				<< new Objective (Robot::Color::GREEN, Objective::Symbol::A, QPoint (1, 6))
+				<< new Objective (Robot::Color::GREEN, Objective::Symbol::B, QPoint (6, 14))
+				<< new Objective (Robot::Color::GREEN, Objective::Symbol::C, QPoint (14, 6))
+				<< new Objective (Robot::Color::GREEN, Objective::Symbol::D, QPoint (14, 13))
+				<< new Objective (Robot::Color::YELLOW, Objective::Symbol::A, QPoint (4, 5))
+				<< new Objective (Robot::Color::YELLOW, Objective::Symbol::B, QPoint (5, 8))
+				<< new Objective (Robot::Color::YELLOW, Objective::Symbol::C, QPoint (10, 7))
+				<< new Objective (Robot::Color::YELLOW, Objective::Symbol::D, QPoint (11, 14));
 }
 
 Board::~Board () {

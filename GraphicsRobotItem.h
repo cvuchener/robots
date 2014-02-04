@@ -7,7 +7,7 @@
 
 class GraphicsRobotItem: public QGraphicsItem {
 public:
-	GraphicsRobotItem (Robot::Color color, QGraphicsItem *parent = nullptr);
+	GraphicsRobotItem (RobotColor color, QGraphicsItem *parent = nullptr);
 	virtual ~GraphicsRobotItem ();
 
 	void setSelectedState (bool selected);
@@ -16,7 +16,7 @@ public:
 	virtual	void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
-	Robot::Color _color;
+	RobotColor _color;
 	bool _selected;
 };
 

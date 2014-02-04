@@ -20,7 +20,7 @@ const Robots &Game::robots () const {
 	return _robots;
 }
 
-const Robot &Game::robot (Robot::Color color) const {
+const Robot &Game::robot (RobotColor color) const {
 	return *_robots[color];
 }
 
@@ -28,11 +28,11 @@ const Rules *Game::rules () const {
 	return _rules;
 }
 
-QList<QPoint> Game::validMoves (Robot::Color color) const {
+QList<QPoint> Game::validMoves (RobotColor color) const {
 	return _rules->validMoves (_board, _robots, color);
 }
 
-bool Game::move (Robot::Color color, QPoint position) {
+bool Game::move (RobotColor color, QPoint position) {
 	if (true) {
 		Robot *robot = _robots[color];
 		robot->move (position);

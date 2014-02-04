@@ -12,7 +12,7 @@ MainWindow::MainWindow (QWidget *parent): QMainWindow (parent), _pathfinder (nul
 
 	const QList<const Objective *> &objs = _game->board ().objectives ();
 	for (unsigned int i = 0; i < objs.count (); i++)
-		_objective_combobox->addItem (QString::number(i), QVariant (i));
+		_objective_combobox->addItem (QString ("%1 %2").arg (objs.at (i)->color()->toString ()).arg (objs.at (i)->symbol()->toString ()), QVariant (i));
 }
 
 MainWindow::~MainWindow () {
@@ -33,9 +33,9 @@ void MainWindow::on__search_path_button_clicked () {
 	_search_progressbar->setValue (0);
 
 	_pathfinder = new PathFinder (_game->rules (), _game->board (), _game->robots (), _game->board ().objectives ().at (_objective_combobox->currentData().toInt()));
-	qRegisterMetaType<QList<QPair<Robot::Color, QPoint>>> ("QList<QPair<Robot::Color, QPoint>>");
-	connect (_pathfinder, SIGNAL (pathFound (unsigned int, QList<QPair<Robot::Color, QPoint>>)), _scene, SLOT (showPath (unsigned int, QList<QPair<Robot::Color, QPoint>>)));
-	connect (_pathfinder, SIGNAL (pathFound (unsigned int, QList<QPair<Robot::Color, QPoint>>)), this, SLOT (pathFound (unsigned int, QList<QPair<Robot::Color, QPoint>>)));
+	qRegisterMetaType<QList<QPair<RobotColor, QPoint>>> ("QList<QPair<RobotColor, QPoint>>");
+	connect (_pathfinder, SIGNAL (pathFound (unsigned int, QList<QPair<RobotColor, QPoint>>)), _scene, SLOT (showPath (unsigned int, QList<QPair<RobotColor, QPoint>>)));
+	connect (_pathfinder, SIGNAL (pathFound (unsigned int, QList<QPair<RobotColor, QPoint>>)), this, SLOT (pathFound (unsigned int, QList<QPair<RobotColor, QPoint>>)));
 	connect (_pathfinder, SIGNAL (progress (int)), _search_progressbar, SLOT (setValue (int)));
 	connect (_pathfinder, SIGNAL (finished ()), this, SLOT (searchFinished ()) );
 	_pathfinder->start ();
@@ -51,6 +51,6 @@ void MainWindow::searchFinished () {
 	_search_progressbar->setEnabled (false);
 }
 
-void MainWindow::pathFound (unsigned int cost, QList<QPair<Robot::Color, QPoint>>) {
+void MainWindow::pathFound (unsigned int cost, QList<QPair<RobotColor, QPoint>>) {
 	_path_cost->setText (QString::number (cost));
 }

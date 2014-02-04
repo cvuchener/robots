@@ -8,7 +8,7 @@ GameScene::GameScene (Game *game):
 		_game (game), _board (game->board ()) {
 	addItem (&_board);
 
-	foreach (Robot::Color color, QList<Robot::Color> () << Robot::WHITE << Robot::RED << Robot::BLUE << Robot::GREEN << Robot::YELLOW) {
+	foreach (RobotColor color, Robot::COLORS) {
 		GraphicsRobotItem *robot = new GraphicsRobotItem (color);
 		_robots.insert (color, robot);
 		robot->setPos (_game->robots ()[color]->position ());
@@ -63,17 +63,17 @@ void GameScene::mousePressEvent (QGraphicsSceneMouseEvent *event) {
 }
 
 
-void GameScene::showPath (unsigned int cost, QList<QPair<Robot::Color, QPoint>> path) {
-	foreach (QGraphicsLineItem *item, _path)
+void GameScene::showPath (unsigned int cost, QList<QPair<RobotColor, QPoint>> path) {
+	foreach (GraphicsPathItem *item, _path)
 		delete item;
 	_path.clear ();
 
 	Robots *robots = new Robots (_game->robots ());
-	for (QList<QPair<Robot::Color, QPoint>>::iterator it = path.begin (); it != path.end (); it++) {
-		Robot *robot = (*robots)[(*it).first];
+	for (QList<QPair<RobotColor, QPoint>>::iterator it = path.begin (); it != path.end (); it++) {
+		RobotColor color = (*it).first;
+		Robot *robot = (*robots)[color];
 		QPoint &pos = (*it).second;
-		QGraphicsLineItem *item = new QGraphicsLineItem (QLine (robot->position (), pos));
-		item->setPen (QPen (QBrush (Qt::black), 0.1));
+		GraphicsPathItem *item = new GraphicsPathItem (robot->position (), pos, color);
 		addItem (item);
 		_path << item;
 		robot->move (pos);

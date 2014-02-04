@@ -14,7 +14,9 @@ HEADERS += \
     Robots.h \
     Objective.h \
     Board.h \
-    PathFinder.h
+    PathFinder.h \
+    GraphicsObjectiveItem.h \
+    GraphicsPathItem.h
 
 SOURCES += \
     Robot.cpp \
@@ -29,7 +31,9 @@ SOURCES += \
     Robots.cpp \
     Objective.cpp \
     Board.cpp \
-    PathFinder.cpp
+    PathFinder.cpp \
+    GraphicsObjectiveItem.cpp \
+    GraphicsPathItem.cpp
 
 FORMS += \
     MainWindow.ui

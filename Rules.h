@@ -12,9 +12,9 @@ public:
 	Rules ();
 	virtual ~Rules ();
 
-	QList<QPoint> validMoves (const Board &, const Robots &, Robot::Color) const;
-	virtual QList<QPoint> regularRobotMoves (const Board &, const Robots &, Robot::Color) const = 0;
-	virtual QList<QPoint> specialRobotMoves (const Board &, const Robots &, Robot::Color) const = 0;
+	QList<QPoint> validMoves (const Board &, const Robots &, RobotColor) const;
+	virtual QList<QPoint> regularRobotMoves (const Board &, const Robots &, RobotColor) const = 0;
+	virtual QList<QPoint> specialRobotMoves (const Board &, const Robots &, RobotColor) const = 0;
 };
 
 #endif // RULES_H

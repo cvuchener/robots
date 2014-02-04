@@ -17,20 +17,20 @@ public:
 	virtual ~PathFinder ();
 
 signals:
-	void pathFound (unsigned int cost, QList<QPair<Robot::Color, QPoint>>);
+	void pathFound (unsigned int cost, QList<QPair<RobotColor, QPoint>>);
 	void progress (int value);
 
 protected:
 	virtual void run ();
 
 private:
-	unsigned int search_rec (unsigned int cost, unsigned int max_cost, QList<QPair<Robot::Color, QPoint>> &path, unsigned int max_length);
+	unsigned int search_rec (unsigned int cost, unsigned int max_cost, QList<QPair<RobotColor, QPoint>> &path, unsigned int max_length);
 
 	const Rules *_rules;
 	const Board &_board;
 	Robots _robots;
 	const Objective *_objective;
-	QList<Robot::Color> _color_list;
+	QList<RobotColor> _color_list;
 };
 
 #endif // PATHFINDER_H

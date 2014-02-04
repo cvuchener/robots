@@ -18,7 +18,7 @@ public slots:
 	void on__zoom_slider_valueChanged (int);
 	void on__search_path_button_clicked ();
 	void searchFinished ();
-	void pathFound (unsigned int cost, QList<QPair<Robot::Color, QPoint>>);
+	void pathFound (unsigned int cost, QList<QPair<RobotColor, QPoint>>);
 
 private:
 	Game *_game;
