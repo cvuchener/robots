@@ -1,6 +1,7 @@
 #include "Game.h"
 
 Game::Game (const Rules *rules):
+		_mode (PREPARATION),
 		_robots (QList<QPoint> () << QPoint (0, 0)
 								  << QPoint (1, 1)
 								  << QPoint (2, 2)
@@ -29,7 +30,23 @@ const Rules *Game::rules () const {
 }
 
 QList<QPoint> Game::validMoves (RobotColor color) const {
-	return _rules->validMoves (_board, _robots, color);
+	QList<QPoint> moves;
+	switch (_mode) {
+	case PREPARATION:
+		for (int x = 0; x < _board.size().width(); x++)
+			for (int y = 0; y < _board.size().height(); y++)
+				moves << QPoint (x, y);
+		foreach (RobotColor color, Robot::COLORS)
+			moves.removeAll (_robots[color]->position ());
+		return moves;
+
+	case MOVING:
+		return _rules->validMoves (_board, _robots, color);
+
+	default:
+		return moves;
+	}
+
 }
 
 bool Game::move (RobotColor color, QPoint position) {
@@ -40,4 +57,8 @@ bool Game::move (RobotColor color, QPoint position) {
 		return true;
 	}
 	return false;
+}
+
+void Game::setGameMode (Mode mode) {
+	_mode = mode;
 }

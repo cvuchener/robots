@@ -48,7 +48,7 @@ void GameScene::mousePressEvent (QGraphicsSceneMouseEvent *event) {
 		QList<QPoint> valid_moves = _game->validMoves (robot->color ());
 		foreach (QPoint p, valid_moves) {
 			QGraphicsRectItem *item = new QGraphicsRectItem (QRectF (-0.5, -0.5, 1.0, 1.0).translated(p));
-			item->setBrush (Qt::green);
+			item->setBrush (QColor (128, 255, 64, 64));
 			item->setPen (Qt::NoPen);
 			addItem (item);
 			_move_items << item;

@@ -13,19 +13,23 @@
 class PathFinder: public QThread {
 	Q_OBJECT
 public:
-	PathFinder (const Rules *rules, const Board &board, const Robots &robots, const Objective *objective);
+	PathFinder (const Rules *rules, const Board &board, const Robots &robots, const Objective *objective, int max_length);
 	virtual ~PathFinder ();
+
+public slots:
+	void cancel ();
 
 signals:
 	void pathFound (unsigned int cost, QList<QPair<RobotColor, QPoint>>);
-	void progress (int value);
 
 protected:
 	virtual void run ();
 
 private:
-	unsigned int search_rec (unsigned int cost, unsigned int max_cost, QList<QPair<RobotColor, QPoint>> &path, unsigned int max_length);
+	unsigned int search_rec (unsigned int cost, unsigned int max_cost, QList<QPair<RobotColor, QPoint>> &path);
 
+	bool _canceled;
+	int _max_length;
 	const Rules *_rules;
 	const Board &_board;
 	Robots _robots;

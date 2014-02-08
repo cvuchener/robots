@@ -11,6 +11,11 @@
 class Game: public QObject {
 	Q_OBJECT
 public:
+	enum Mode {
+		PREPARATION,
+		MOVING
+	};
+
 	Game (const Rules *rules);
 	virtual ~Game ();
 
@@ -22,10 +27,13 @@ public:
 	QList<QPoint> validMoves (RobotColor) const;
 	bool move (RobotColor, QPoint position);
 
+	void setGameMode (Mode mode);
+
 signals:
 	void robotMoved (const Robot *);
 
 private:
+	Mode _mode;
 	Robots _robots;
 	Board _board;
 	const Rules *_rules;
