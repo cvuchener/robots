@@ -28,6 +28,20 @@
        <widget class="QComboBox" name="_mode_combobox"/>
       </item>
       <item>
+       <widget class="QPushButton" name="_save_button">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="_restore_button">
+        <property name="text">
+         <string>Restore</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -177,64 +191,126 @@
       </widget>
      </item>
      <item>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Solution</string>
        </property>
-       <item row="1" column="0">
-        <widget class="QLabel" name="_cost_label">
-         <property name="text">
-          <string>Cost:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="_path_cost">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="_path_label">
-         <property name="text">
-          <string>Path:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QTreeWidget" name="_path_widget">
-         <column>
-          <property name="text">
-           <string>Robot</string>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
           </property>
-         </column>
-         <column>
+          <item row="1" column="0">
+           <widget class="QLabel" name="_cost_label">
+            <property name="text">
+             <string>Cost:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="_path_cost">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="_path_label">
+            <property name="text">
+             <string>Path:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QTreeWidget" name="_path_widget">
+            <column>
+             <property name="text">
+              <string>Robot</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Position</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="_show_path_checkbox">
           <property name="text">
-           <string>Position</string>
+           <string>Show path</string>
           </property>
-         </column>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="_clear_path_button">
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
     </layout>
    </widget>
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>_show_path_checkbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>_path_widget</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>790</x>
+     <y>609</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>812</x>
+     <y>418</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>_clear_path_button</sender>
+   <signal>clicked()</signal>
+   <receiver>_path_cost</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>777</x>
+     <y>640</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>799</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>_clear_path_button</sender>
+   <signal>clicked()</signal>
+   <receiver>_path_widget</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>777</x>
+     <y>640</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>799</x>
+     <y>418</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -15,7 +15,7 @@ public:
 	Robot *atPosition (const QPoint &position);
 	const Robot *atPosition (const QPoint &position) const;
 
-	Robots &operator= (const Robots &) = delete;
+	Robots &operator= (const Robots &);
 
 private:
 	Robot *_robots;

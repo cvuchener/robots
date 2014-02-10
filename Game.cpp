@@ -7,6 +7,7 @@ Game::Game (const Rules *rules):
 								  << QPoint (2, 2)
 								  << QPoint (3, 3)
 								  << QPoint (4, 4)),
+		_saved (_robots),
 		_rules (rules) {
 }
 
@@ -61,4 +62,14 @@ bool Game::move (RobotColor color, QPoint position) {
 
 void Game::setGameMode (Mode mode) {
 	_mode = mode;
+}
+
+void Game::saveRobots () {
+	_saved = _robots;
+}
+
+void Game::restoreRobots () {
+	_robots = _saved;
+	foreach (RobotColor color, Robot::COLORS)
+		emit robotMoved (_robots[color]);
 }

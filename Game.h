@@ -29,12 +29,17 @@ public:
 
 	void setGameMode (Mode mode);
 
+public slots:
+	void saveRobots ();
+	void restoreRobots ();
+
 signals:
 	void robotMoved (const Robot *);
 
 private:
 	Mode _mode;
 	Robots _robots;
+	Robots _saved;
 	Board _board;
 	const Rules *_rules;
 };

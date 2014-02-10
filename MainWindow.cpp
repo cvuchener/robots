@@ -17,6 +17,12 @@ MainWindow::MainWindow (QWidget *parent): QMainWindow (parent), _pathfinder (nul
 
 	_mode_combobox->addItem ("Preparation", static_cast<int> (Game::PREPARATION));
 	_mode_combobox->addItem ("Moving", static_cast<int> (Game::MOVING));
+
+	connect (_show_path_checkbox, SIGNAL (toggled (bool)), _scene, SLOT (setPathVisible (bool)));
+	connect (_clear_path_button, SIGNAL (clicked ()), _scene, SLOT (clearPath ()));
+
+	connect (_save_button, SIGNAL (clicked ()), _game, SLOT (saveRobots ()));
+	connect (_restore_button, SIGNAL (clicked ()), _game, SLOT (restoreRobots ()));
 }
 
 MainWindow::~MainWindow () {

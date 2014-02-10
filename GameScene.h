@@ -15,6 +15,8 @@ public:
 	virtual ~GameScene ();
 
 public slots:
+	void setPathVisible (bool visible);
+	void clearPath ();
 	void updateRobot (const Robot *);
 	void showPath (unsigned int cost, QList<QPair<RobotColor, QPoint>> path);
 

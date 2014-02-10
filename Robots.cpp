@@ -41,3 +41,9 @@ const Robot *Robots::atPosition (const QPoint &position) const {
 			return &_robots[i];
 	return nullptr;
 }
+
+Robots &Robots::operator= (const Robots &other) {
+	for (unsigned int i = 0; i < Robot::ROBOT_COUNT; i++)
+		_robots[i] = other._robots[i];
+	return *this;
+}
