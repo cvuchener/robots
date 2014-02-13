@@ -5,7 +5,7 @@
 #include <QPoint>
 #include <QSize>
 
-#include "Objective.h"
+#include "Target.h"
 
 class Board {
 public:
@@ -24,14 +24,14 @@ public:
 	QSize size () const;
 	unsigned int cell (QPoint position) const;
 
-	const QList<const Objective *> &objectives () const;
+	const QList<const Target *> &targets () const;
 
 	Board &operator= (const Board &) = delete;
 
 private:
 	unsigned int _width, _height;
 	unsigned int **_cells;
-	QList<const Objective *> _objectives;
+	QList<const Target *> _targets;
 };
 
 #endif // BOARD_H

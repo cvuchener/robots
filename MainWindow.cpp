@@ -11,18 +11,19 @@ MainWindow::MainWindow (QWidget *parent): QMainWindow (parent), _pathfinder (nul
 	_game_view->setScene (_scene);
 	_game_view->setTransform (QTransform::fromScale (32.0, 32.0));
 
-	const QList<const Objective *> &objs = _game->board ().objectives ();
+	const QList<const Target *> &objs = _game->board ().targets ();
 	for (int i = 0; i < objs.count (); i++)
-		_objective_combobox->addItem (QString ("%1 %2").arg (objs.at (i)->color()->toString ()).arg (objs.at (i)->symbol()->toString ()), QVariant (i));
-
-	_mode_combobox->addItem ("Preparation", static_cast<int> (Game::PREPARATION));
-	_mode_combobox->addItem ("Moving", static_cast<int> (Game::MOVING));
+		_target_combobox->addItem (QString ("%1 %2").arg (objs.at (i)->color()->toString ()).arg (objs.at (i)->symbol()->toString ()), QVariant (i));
 
 	connect (_show_path_checkbox, SIGNAL (toggled (bool)), _scene, SLOT (setPathVisible (bool)));
 	connect (_clear_path_button, SIGNAL (clicked ()), _scene, SLOT (clearPath ()));
 
 	connect (_save_button, SIGNAL (clicked ()), _game, SLOT (saveRobots ()));
 	connect (_restore_button, SIGNAL (clicked ()), _game, SLOT (restoreRobots ()));
+	connect (_end_preparation_button, SIGNAL (clicked ()), _game, SLOT (endPreparation ()));
+
+	connect (_game, SIGNAL (stateChanged (Game::State)), this, SLOT (onGameStateChanged (Game::State)));
+	connect (_game, SIGNAL (newTarget (const Target *)), this, SLOT (onNewTarget (const Target *)));
 }
 
 MainWindow::~MainWindow () {
@@ -52,7 +53,7 @@ void MainWindow::on__search_path_button_clicked () {
 	_search_progressbar->setMaximum (0);
 
 	_pathfinder = new PathFinder (_game->rules (), _game->board (), _game->robots (),
-								  _game->board ().objectives ().at (_objective_combobox->currentData().toInt()),
+								  _game->board ().targets ().at (_target_combobox->currentData().toInt()),
 								  _maximum_path_length->value ());
 	qRegisterMetaType<QList<QPair<RobotColor, QPoint>>> ("QList<QPair<RobotColor, QPoint>>");
 	connect (_pathfinder, SIGNAL (pathFound (unsigned int, QList<QPair<RobotColor, QPoint>>)), _scene, SLOT (showPath (unsigned int, QList<QPair<RobotColor, QPoint>>)));
@@ -91,11 +92,41 @@ void MainWindow::pathFound (unsigned int cost, QList<QPair<RobotColor, QPoint>> 
 	}
 }
 
-void MainWindow::on__mode_combobox_activated (int index) {
-	_game->setGameMode (static_cast<Game::Mode> (_mode_combobox->itemData (index).toInt ()));
-}
-
-void MainWindow::on__objective_combobox_currentIndexChanged (int) {
+void MainWindow::on__target_combobox_currentIndexChanged (int) {
 	_search_progressbar->setValue (0);
 	_search_progressbar->setMaximum (1);
+}
+
+void MainWindow::onGameStateChanged (Game::State state) {
+	switch (state) {
+	case Game::PREPARATION:
+		_game_phase->setText ("Preparation");
+		_end_preparation_button->setVisible (true);
+		_current_target_group->setVisible (false);
+		break;
+
+	case Game::SEARCH:
+		_game_phase->setText ("Search");
+		_end_preparation_button->setVisible (false);
+		break;
+
+	case Game::TIMED_SEARCH:
+		_game_phase->setText ("Timed search");
+		break;
+
+	case Game::MOVING:
+		_game_phase->setText ("Moving");
+		break;
+
+	default:
+			break;
+	}
+}
+
+void MainWindow::onNewTarget (const Target *target) {
+	_current_target->setText (QString ("%1 %2").arg (target->color()->toString ()).arg (target->symbol()->toString ()));
+}
+
+void MainWindow::on__state_new_cost_button_clicked () {
+	_game->stateMoveCount (_new_cost->value ());
 }

@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-PathFinder::PathFinder (const Rules *rules, const Board &board, const Robots &robots, const Objective *objective, int max_length):
-		_canceled (false), _max_length (max_length), _rules (rules), _board (board), _robots (robots), _objective (objective) {
+PathFinder::PathFinder (const Rules *rules, const Board &board, const Robots &robots, const Target *target, int max_length):
+		_canceled (false), _max_length (max_length), _rules (rules), _board (board), _robots (robots), _target (target) {
 }
 
 PathFinder::~PathFinder () {
@@ -16,9 +16,9 @@ void PathFinder::cancel () {
 void PathFinder::run () {
 	QList<QPair<RobotColor, QPoint>> path;
 	_color_list = Robot::COLORS;
-	if (_objective->color () != Robot::Color::WHITE) {
-		_color_list.removeOne (_objective->color ());
-		_color_list.prepend (_objective->color ());
+	if (_target->color () != Robot::Color::WHITE) {
+		_color_list.removeOne (_target->color ());
+		_color_list.prepend (_target->color ());
 	}
 	qDebug () << "Search started";
 	search_rec (0, INT_MAX, path);
@@ -37,9 +37,9 @@ unsigned int PathFinder::search_rec (unsigned int cost, unsigned int max_cost, Q
 			path.append (QPair<RobotColor, QPoint> (color, move));
 			robot->move (move);
 
-			if (_objective->position () == move && _objective->accept (_robots[color])) {
+			if (_target->position () == move && _target->accept (_robots[color])) {
 				emit pathFound (cost+1, path);
-				qDebug () << QString("Found path with cost %1").arg (cost+1);
+				qDebug () << "Found path with cost " << (cost+1);
 
 				path.removeLast ();
 				robot->move (pos);

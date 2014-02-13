@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QList>
+#include <QStack>
+#include <QTimer>
 
 #include "Robots.h"
 #include "Rules.h"
@@ -11,8 +13,10 @@
 class Game: public QObject {
 	Q_OBJECT
 public:
-	enum Mode {
+	enum State {
 		PREPARATION,
+		SEARCH,
+		TIMED_SEARCH,
 		MOVING
 	};
 
@@ -27,21 +31,38 @@ public:
 	QList<QPoint> validMoves (RobotColor) const;
 	bool move (RobotColor, QPoint position);
 
-	void setGameMode (Mode mode);
-
 public slots:
 	void saveRobots ();
 	void restoreRobots ();
+	void endPreparation ();
+	void stateMoveCount (unsigned int);
+	void setSearchTimeout (int);
+	void giveup ();
 
 signals:
 	void robotMoved (const Robot *);
+	void newTarget (const Target *);
+	void stateChanged (Game::State);
+	void moveCounterUpdated (unsigned int);
+
+private slots:
+	void onSearchTimeout ();
+	void onStateChanged (Game::State);
 
 private:
-	Mode _mode;
+	void setState (State state);
+
+	State _state;
 	Robots _robots;
 	Robots _saved;
 	Board _board;
 	const Rules *_rules;
+	QTimer _timer;
+	const Target *_current_target;
+	unsigned int _move_counter;
+	QStack<unsigned int> _move_count_stack;
+	QList<const Target *> _remaining_target;
+
 };
 
 #endif // GAME_H

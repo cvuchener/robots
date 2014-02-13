@@ -1,6 +1,6 @@
 #include "GraphicsBoardItem.h"
 
-#include "GraphicsObjectiveItem.h"
+#include "GraphicsTargetItem.h"
 
 #include <QPen>
 #include <QPainter>
@@ -31,10 +31,10 @@ GraphicsBoardItem::GraphicsBoardItem (const Board &board): _board_size (board.si
 			}
 		}
 
-	QList<const Objective *> objectives = board.objectives ();
-	foreach (const Objective *objective, objectives) {
-		GraphicsObjectiveItem *item = new GraphicsObjectiveItem (objective, this);
-		item->setPos (objective->position ());
+	QList<const Target *> targets = board.targets ();
+	foreach (const Target *target, targets) {
+		GraphicsTargetItem *item = new GraphicsTargetItem (target, this);
+		item->setPos (target->position ());
 	}
 }
 

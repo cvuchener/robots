@@ -1,9 +1,9 @@
-#ifndef OBJECTIVE_H
-#define OBJECTIVE_H
+#ifndef TARGET_H
+#define TARGET_H
 
 #include "Robot.h"
 
-class Objective {
+class Target {
 public:
 	class Symbol {
 	public:
@@ -18,8 +18,8 @@ public:
 		QString _name;
 	};
 
-	Objective (RobotColor color, const Symbol *symbol, QPoint position);
-	~Objective ();
+	Target (RobotColor color, const Symbol *symbol, QPoint position);
+	~Target ();
 
 	bool accept (const Robot *) const;
 	RobotColor color () const;
@@ -32,6 +32,6 @@ private:
 	QPoint _position;
 };
 
-typedef const Objective::Symbol *ObjectiveSymbol;
+typedef const Target::Symbol *TargetSymbol;
 
-#endif // OBJECTIVE_H
+#endif // TARGET_H

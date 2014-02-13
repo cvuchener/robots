@@ -13,7 +13,7 @@
 class PathFinder: public QThread {
 	Q_OBJECT
 public:
-	PathFinder (const Rules *rules, const Board &board, const Robots &robots, const Objective *objective, int max_length);
+	PathFinder (const Rules *rules, const Board &board, const Robots &robots, const Target *target, int max_length);
 	virtual ~PathFinder ();
 
 public slots:
@@ -33,7 +33,7 @@ private:
 	const Rules *_rules;
 	const Board &_board;
 	Robots _robots;
-	const Objective *_objective;
+	const Target *_target;
 	QList<RobotColor> _color_list;
 };
 

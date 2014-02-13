@@ -12,11 +12,11 @@ HEADERS += \
     GraphicsRobotItem.h \
     GraphicsBoardItem.h \
     Robots.h \
-    Objective.h \
     Board.h \
     PathFinder.h \
-    GraphicsObjectiveItem.h \
-    GraphicsPathItem.h
+    GraphicsPathItem.h \
+    Target.h \
+    GraphicsTargetItem.h
 
 SOURCES += \
     Robot.cpp \
@@ -29,11 +29,11 @@ SOURCES += \
     Game.cpp \
     GraphicsBoardItem.cpp \
     Robots.cpp \
-    Objective.cpp \
     Board.cpp \
     PathFinder.cpp \
-    GraphicsObjectiveItem.cpp \
-    GraphicsPathItem.cpp
+    GraphicsPathItem.cpp \
+    Target.cpp \
+    GraphicsTargetItem.cpp
 
 FORMS += \
     MainWindow.ui
