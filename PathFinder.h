@@ -35,6 +35,7 @@ private:
 	Robots _robots;
 	const Objective *_objective;
 	QList<RobotColor> _color_list;
+	unsigned int _tested_path_count;
 };
 
 #endif // PATHFINDER_H
